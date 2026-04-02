@@ -78,7 +78,7 @@ const countryData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 120 + Math.floor(Math.random() * 80), // Random price between 120-200
+        price: 20 + Math.floor(Math.random() * 5), // Random price between 20-25
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
@@ -119,7 +119,7 @@ const countryData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 150 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5), // Random price between 20-25
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
@@ -160,7 +160,7 @@ const countryData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 140 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5), // Random price between 20-25
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
@@ -201,7 +201,7 @@ const countryData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 130 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5), // Random price between 20-25
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
