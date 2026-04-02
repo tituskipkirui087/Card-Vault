@@ -820,77 +820,77 @@ export const products: Product[] = [
     id: 'fullz-1',
     name: 'US Fullz Package',
     description: 'HIDDEN',
-    price: 120,
+    price: 25,
     category: 'fullz',
     badge: 'Popular',
     features: ['HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN'],
     stock: 45,
     rating: 4.8,
     reviews: 234,
-    stockOptions: generateStockOptions(120, 45)
+    stockOptions: generateStockOptions(25, 45)
   },
   {
     id: 'fullz-2',
     name: 'EU Fullz Bundle',
     description: 'HIDDEN',
-    price: 150,
+    price: 24,
     category: 'fullz',
     badge: 'Premium',
     features: ['HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN'],
     stock: 32,
     rating: 4.7,
     reviews: 178,
-    stockOptions: generateStockOptions(150, 32)
+    stockOptions: generateStockOptions(24, 32)
   },
   {
     id: 'fullz-3',
     name: 'UK Fullz Package',
     description: 'HIDDEN',
-    price: 140,
+    price: 23,
     category: 'fullz',
     features: ['HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN'],
     stock: 28,
     rating: 4.6,
     reviews: 145,
-    stockOptions: generateStockOptions(140, 28)
+    stockOptions: generateStockOptions(23, 28)
   },
   {
     id: 'fullz-4',
     name: 'Premium Fullz Elite',
     description: 'HIDDEN',
-    price: 350,
+    price: 22,
     category: 'fullz',
     badge: 'Elite',
     features: ['HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN'],
     stock: 12,
     rating: 5.0,
     reviews: 67,
-    stockOptions: generateStockOptions(350, 12)
+    stockOptions: generateStockOptions(22, 12)
   },
   {
     id: 'fullz-5',
     name: 'Canada Fullz Pack',
     description: 'HIDDEN',
-    price: 130,
+    price: 21,
     category: 'fullz',
     features: ['HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN'],
     stock: 35,
     rating: 4.5,
     reviews: 98,
-    stockOptions: generateStockOptions(130, 35)
+    stockOptions: generateStockOptions(21, 35)
   },
   {
     id: 'fullz-6',
     name: 'Fullz Starter Pack',
     description: 'HIDDEN',
-    price: 80,
+    price: 20,
     category: 'fullz',
     badge: 'Value',
     features: ['HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN', 'HIDDEN'],
     stock: 60,
     rating: 4.4,
     reviews: 312,
-    stockOptions: generateStockOptions(80, 60)
+    stockOptions: generateStockOptions(20, 60)
   },
 
   // Courses Category
