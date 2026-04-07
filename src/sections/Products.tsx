@@ -365,7 +365,7 @@ const fullzData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 120 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5),
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
@@ -406,7 +406,7 @@ const fullzData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 150 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5),
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
@@ -447,7 +447,7 @@ const fullzData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 140 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5),
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
@@ -488,7 +488,7 @@ const fullzData = [
         medicalInsurance: 'HIDDEN',
         idPhotos: 'HIDDEN',
         selfies: 'HIDDEN',
-        price: 130 + Math.floor(Math.random() * 80),
+        price: 20 + Math.floor(Math.random() * 5),
         status: (Math.random() > 0.1 ? 'available' : 'sold') as 'available' | 'sold'
       };
     })
