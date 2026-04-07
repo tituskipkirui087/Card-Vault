@@ -267,7 +267,7 @@ export function CartDrawer() {
       </Sheet>
 
       <Dialog open={cryptoOpen} onOpenChange={setCryptoOpen}>
-        <DialogContent className="max-w-md bg-black border border-green-500/30 font-mono">
+        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-black border border-green-500/30 font-mono">
           <DialogHeader>
             <DialogTitle className="text-center text-green-400 flex items-center justify-center gap-2">
               <Bitcoin className="w-5 h-5" />
@@ -377,7 +377,7 @@ export function CartDrawer() {
       </Dialog>
 
       <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
-        <DialogContent className="max-w-md bg-black border border-green-500/30 font-mono">
+        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-black border border-green-500/30 font-mono">
           <DialogHeader>
             <DialogTitle className="text-center text-green-400 flex items-center justify-center gap-2">
               <Terminal className="w-5 h-5" />
