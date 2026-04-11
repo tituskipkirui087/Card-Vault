@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, Terminal, Search, Power, MessageCircle } from 'lucide-react';
+import {
+  ShoppingCart, Menu, Terminal, Search, MessageCircle
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -7,7 +9,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { useCart } from '@/context/CartContext';
 import { useStore } from '@/context/StoreContext';
 import { MessageInbox } from '@/components/MessageInbox';
-import logo from '@/lib/card vault favicon.jpeg';
 import {
   Sheet,
   SheetContent,

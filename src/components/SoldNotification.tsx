@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { ShoppingCart, X, Globe, MapPin } from 'lucide-react';
+import { ShoppingCart, X, MapPin } from 'lucide-react';
 
 interface SoldNotificationProps {
   productName: string;
