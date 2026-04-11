@@ -1,15 +1,18 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import type { Product } from '@/types';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import type { Product, Order } from '@/types';
 import { products as initialProducts } from '@/data/products';
 
 interface ProductStore {
   products: Product[];
+  orders: Order[];
   reduceStock: (productId: string, quantity: number) => void;
   restoreStock: (productId: string, quantity: number) => void;
   reduceOptionStock: (productId: string, price: number, quantity: number) => void;
   restoreOptionStock: (productId: string, price: number, quantity: number) => void;
   getProductStock: (productId: string) => number;
   refreshProducts: () => void;
+  logout: () => void;
+  createOrder: (product: Product, price: number) => void;
 }
 
 const StoreContext = createContext<ProductStore | undefined>(undefined);
@@ -24,6 +27,34 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       stock: generateRandomStock()
     }))
   );
+  
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  // Auto generate anonymous user
+  useEffect(() => {
+    const savedOrders = localStorage.getItem('orders');
+
+    if (savedOrders) setOrders(JSON.parse(savedOrders));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('orders', JSON.stringify(orders));
+  }, [orders]);
+
+  const logout = useCallback(() => {
+    // No logout needed for anonymous system
+  }, []);
+
+  const createOrder = useCallback((product: Product, price: number) => {
+    const newOrder: Order = {
+      id: Date.now().toString(),
+      productName: product.name,
+      price,
+      status: 'completed',
+      createdAt: new Date().toISOString()
+    };
+    setOrders(prev => [newOrder, ...prev]);
+  }, []);
 
   const reduceStock = useCallback((productId: string, quantity: number) => {
     setProducts(prev => 
@@ -103,7 +134,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <StoreContext.Provider value={{ products, reduceStock, restoreStock, reduceOptionStock, restoreOptionStock, getProductStock, refreshProducts }}>
+    <StoreContext.Provider value={{
+      products,
+      orders,
+      reduceStock,
+      restoreStock,
+      reduceOptionStock,
+      restoreOptionStock,
+      getProductStock,
+      refreshProducts,
+      logout,
+      createOrder
+    }}>
       {children}
     </StoreContext.Provider>
   );

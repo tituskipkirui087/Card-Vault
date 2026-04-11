@@ -24,7 +24,7 @@ const iconMap: Record<string, React.ElementType> = {
   FileText,
 };
 
-function ProductCard({ product, index, onProductSold }: { product: Product; index: number; onProductSold?: (productName: string, price: number, balance: number) => void }) {
+function ProductCard({ product, index, onProductSold }: { product: Product; index: number; onProductSold?: (productName: string, price: number, location: string) => void }) {
   const { addToCart } = useCart();
   const { products: storeProducts, reduceStock, reduceOptionStock } = useStore();
   const currentProduct = storeProducts.find(p => p.id === product.id) || product;
@@ -59,8 +59,15 @@ function ProductCard({ product, index, onProductSold }: { product: Product; inde
 
   return (
     <Card 
-      className={`group relative bg-black border ${categoryColors[product.category]} overflow-hidden hover:border-green-500 transition-all duration-300 hover:glow-green`}
+      className={`group relative bg-black overflow-hidden rounded-xl transition-all duration-400 shadow-lg shadow-green-900/20 hover:shadow-xl hover:shadow-green-500/20 hover:-translate-y-1`}
     >
+      {/* Animated gradient border */}
+      <div className="absolute inset-0 rounded-xl p-0.5 bg-gradient-to-r from-green-500 via-[#FFD700] to-green-500 bg-[length:200%_100%] animate-border-flow opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+        <div className="h-full w-full bg-black rounded-[10px]" />
+      </div>
+      
+      {/* Static base border */}
+      <div className={`absolute inset-0 rounded-xl border-2 ${categoryColors[product.category]} group-hover:border-transparent transition-all duration-400`} />
       {/* Product ID Badge */}
       <div className="absolute top-0 left-0 bg-green-500/20 border-r border-b border-green-500/30 px-2 py-1">
         <span className="text-xs font-mono text-green-600">
@@ -75,8 +82,11 @@ function ProductCard({ product, index, onProductSold }: { product: Product; inde
         </span>
       </div>
 
+      {/* Inner glow border effect */}
+      <div className="absolute inset-0 border border-green-500/10 pointer-events-none rounded-xl" />
+      
       {/* Product Content */}
-      <CardContent className="p-6 pt-12">
+      <CardContent className="p-6 pt-12 relative z-10">
         <div className="mb-4">
           <h3 className="font-mono text-lg text-green-400 group-hover:text-green-300 transition-colors">
             {product.name}
@@ -105,78 +115,78 @@ function ProductCard({ product, index, onProductSold }: { product: Product; inde
           </span>
         </div>
 
-        {/* Features */}
-        <div className="space-y-2 mb-4">
-          {product.category === 'fullz' 
-            ? Array.from({ length: 4 }).map((_, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-sm text-green-700">
-                  <ChevronRight className="w-4 h-4" />
-                  <span className="font-mono">HIDDEN</span>
-                </div>
-              ))
-            : product.features.slice(0, 4).map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-sm text-green-700">
-                  <ChevronRight className="w-4 h-4" />
-                  <span className="font-mono">{feature}</span>
-                </div>
-              ))
-          }
-        </div>
+         {/* Features */}
+         <div className="space-y-2 mb-4">
+           {product.category === 'fullz' 
+             ? Array.from({ length: 4 }).map((_, idx) => (
+                 <div key={idx} className="flex items-center gap-2 text-sm text-[#DDA0DD]">
+                   <ChevronRight className="w-4 h-4 text-[#FFD700]" />
+                   <span className="font-mono">HIDDEN</span>
+                 </div>
+               ))
+             : product.features.slice(0, 4).map((feature, idx) => (
+                 <div key={idx} className="flex items-center gap-2 text-sm text-[#DDA0DD]">
+                   <ChevronRight className="w-4 h-4 text-[#FFD700]" />
+                   <span className="font-mono">{feature}</span>
+                 </div>
+               ))
+           }
+         </div>
         
-        <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
-          <div className="font-mono">
-            {/* Stock Options Dropdown */}
-            {product.stockOptions && product.stockOptions.length > 0 ? (
-              <div className="mb-2">
-                <Select
-                  value={selectedStockOption ? (isTool ? `${selectedStockOption.price}-${selectedStockOption.quality}` : `${selectedStockOption.price}-${selectedStockOption.balance}`) : ''}
-                  onValueChange={(value) => {
-                    const parts = value.split('-');
-                    const price = Number(parts[0]);
-                    const option = product.stockOptions?.find(o => o.price === price);
-                    if (option) setSelectedStockOption(option);
-                  }}
-                >
-                  <SelectTrigger className="h-auto py-2 px-3 text-sm border-green-500/50 bg-black/80 text-green-400 font-mono w-full justify-between">
-                    <SelectValue placeholder="Select option" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-black border-green-500/50 min-w-[200px]">
-                    {product.stockOptions?.map((option, idx) => {
-                      // Get the current option stock from store
-                      const storeProduct = storeProducts.find(p => p.id === product.id);
-                      const storeOption = storeProduct?.stockOptions?.find(o => o.price === option.price);
-                      const currentOptionStock = storeOption?.stock ?? option.stock;
-                      
-                      return (
-                        <SelectItem 
-                          key={idx} 
-                          value={`${option.price}-${isTool ? option.quality : option.balance}`}
-                          className="text-green-400 font-mono text-sm focus:bg-green-500/20 focus:text-green-300 py-2"
-                          disabled={currentOptionStock === 0}
-                        >
-                          <span className="text-green-400 font-semibold">PRICE ${option.price}</span>
-                          {isTool ? (
-                            <span className="text-green-500 ml-2">- {option.quality}</span>
-                          ) : (
-                            <span className="text-green-500 ml-2">- Balance ${option.balance.toLocaleString()}</span>
-                          )}
-                          <span className={`ml-2 ${currentOptionStock > 5 ? 'text-green-600' : currentOptionStock > 0 ? 'text-yellow-600' : 'text-red-600'}`}>
-                            ({currentOptionStock} left)
-                          </span>
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-              </div>
-            ) : (
-              <div className="text-green-700 text-xs mb-1">Stock: {totalOptionStock}</div>
-            )}
-            <span className="text-green-700">$</span>
-            <span className="text-green-400 text-xl">
-              {selectedStockOption ? selectedStockOption.price : currentProduct.price}
-            </span>
-            <span className="text-green-700">.00</span>
+         <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
+           <div className="font-mono">
+             {/* Stock Options Dropdown */}
+             {product.stockOptions && product.stockOptions.length > 0 ? (
+               <div className="mb-2">
+                 <Select
+                   value={selectedStockOption ? (isTool ? `${selectedStockOption.price}-${selectedStockOption.quality}` : `${selectedStockOption.price}-${selectedStockOption.balance}`) : ''}
+                   onValueChange={(value) => {
+                     const parts = value.split('-');
+                     const price = Number(parts[0]);
+                     const option = product.stockOptions?.find(o => o.price === price);
+                     if (option) setSelectedStockOption(option);
+                   }}
+                 >
+                   <SelectTrigger className="h-auto py-2 px-3 text-sm border-green-500/50 bg-black/80 text-green-400 font-mono w-full justify-between">
+                     <SelectValue placeholder="Select option" />
+                   </SelectTrigger>
+                   <SelectContent className="bg-black border-green-500/50 min-w-[200px]">
+                     {product.stockOptions?.map((option, idx) => {
+                       // Get the current option stock from store
+                       const storeProduct = storeProducts.find(p => p.id === product.id);
+                       const storeOption = storeProduct?.stockOptions?.find(o => o.price === option.price);
+                       const currentOptionStock = storeOption?.stock ?? option.stock;
+                       
+                       return (
+                         <SelectItem 
+                           key={idx} 
+                           value={`${option.price}-${isTool ? option.quality : option.balance}`}
+                           className="text-green-400 font-mono text-sm focus:bg-green-500/20 focus:text-green-300 py-2"
+                           disabled={currentOptionStock === 0}
+                         >
+                           <span className="text-[#FF6B6B] font-semibold">PRICE ${option.price}</span>
+                           {isTool ? (
+                             <span className="text-[#4ECDC4] ml-2">- {option.quality}</span>
+                           ) : (
+                             <span className="text-[#45B7D1] ml-2">- Balance ${option.balance.toLocaleString()}</span>
+                           )}
+                           <span className={`ml-2 ${currentOptionStock > 5 ? 'text-[#96CEB4]' : currentOptionStock > 0 ? 'text-[#FFEAA7]' : 'text-[#FF6B6B]'}`}>
+                             ({currentOptionStock} left)
+                           </span>
+                         </SelectItem>
+                       );
+                     })}
+                   </SelectContent>
+                 </Select>
+               </div>
+             ) : (
+               <div className="text-[#95E1D3] text-xs mb-1">Stock: {totalOptionStock}</div>
+             )}
+             <span className="text-[#F38181]">$</span>
+             <span className="text-[#A8E6CF] text-xl font-bold">
+               {selectedStockOption ? selectedStockOption.price : currentProduct.price}
+             </span>
+             <span className="text-[#88D8B0]">.00</span>
             {product.originalPrice && (
               <span className="text-green-800 text-sm line-through ml-2">${product.originalPrice}</span>
             )}
@@ -268,15 +278,17 @@ function ProductCard({ product, index, onProductSold }: { product: Product; inde
                         addToCart(itemToAdd);
                         // Show sold notification
                         if (onProductSold) {
-                          onProductSold(product.name, selectedStockOption.price, selectedStockOption.balance || 0);
+                          const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                          onProductSold(product.name, selectedStockOption.price, location);
                         }
                       } else {
                         reduceStock(product.id, 1);
                         addToCart(product);
-                        // Show sold notification
-                        if (onProductSold) {
-                          onProductSold(product.name, product.price, 0);
-                        }
+                         // Show sold notification
+                         if (onProductSold) {
+                           const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                           onProductSold(product.name, product.price, location);
+                         }
                       }
                     }}
                     className="w-full bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black font-mono"
@@ -296,17 +308,19 @@ function ProductCard({ product, index, onProductSold }: { product: Product; inde
                   // Reduce option-specific stock when adding to cart
                   reduceOptionStock(product.id, selectedStockOption.price, 1);
                   addToCart(itemToAdd);
-                  // Show sold notification
-                  if (onProductSold) {
-                    onProductSold(product.name, selectedStockOption.price, selectedStockOption.balance || 0);
-                  }
+                   // Show sold notification
+                   if (onProductSold) {
+                     const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                     onProductSold(product.name, selectedStockOption.price, location);
+                   }
                 } else {
                   reduceStock(product.id, 1);
                   addToCart(product);
-                  // Show sold notification
-                  if (onProductSold) {
-                    onProductSold(product.name, product.price, 0);
-                  }
+                   // Show sold notification
+                   if (onProductSold) {
+                     const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                     onProductSold(product.name, product.price, location);
+                   }
                 }
               }}
               disabled={totalOptionStock === 0 || (selectedStockOption ? (currentProduct.stockOptions?.find(o => o.price === selectedStockOption.price)?.stock ?? selectedStockOption.stock) === 0 : false)}
@@ -519,7 +533,7 @@ const fullzTableColumns = [
   { key: 'selfies', label: 'Selfies/Facial' }
 ];
 
-function FullzInventory({ onProductSold }: { onProductSold?: (productName: string, price: number, balance: number) => void }) {
+function FullzInventory({ onProductSold }: { onProductSold?: (productName: string, price: number, location: string) => void }) {
   const { addToCart } = useCart();
   const { reduceStock } = useStore();
   const [selectedCountry, setSelectedCountry] = useState<typeof fullzData[0] | null>(null);
@@ -545,7 +559,8 @@ function FullzInventory({ onProductSold }: { onProductSold?: (productName: strin
     reduceStock(entry.id, 1);
     addToCart(product);
     if (onProductSold) {
-      onProductSold(product.name, entry.price, 0);
+      const location = selectedCountry?.name || 'Global';
+      onProductSold(product.name, entry.price, location);
     }
   };
 
@@ -704,7 +719,7 @@ function FullzInventory({ onProductSold }: { onProductSold?: (productName: strin
   );
 }
 
-export function Products({ onProductSold }: { onProductSold?: (productName: string, price: number, balance: number) => void }) {
+export function Products({ onProductSold }: { onProductSold?: (productName: string, price: number, location: string) => void }) {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const { ref, isVisible } = useScrollAnimation();
   const { products: storeProducts } = useStore();

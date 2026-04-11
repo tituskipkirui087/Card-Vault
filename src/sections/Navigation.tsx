@@ -122,24 +122,42 @@ export function Navigation() {
       <nav
         className={`fixed top-8 left-0 right-0 z-50 transition-all duration-300 font-mono ${
         isScrolled
-          ? 'bg-black/95 border-b border-green-500/30'
-          : 'bg-transparent'
+          ? 'bg-[#1A1B26]/95 backdrop-blur-md border-b border-[#7928CA]/30 shadow-lg shadow-[#7928CA]/10'
+          : 'bg-[#1A1B26]/80 backdrop-blur-sm border-b border-[#7928CA]/20'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 group">
-            <img 
-              src={logo} 
-              alt="CardVault" 
-              className="w-10 h-10 object-contain border border-green-500 group-hover:border-green-400 transition-colors"
-            />
-            <div className="hidden sm:block">
-              <span className="text-green-500 font-bold tracking-wider">CARDVAULT</span>
-              <span className="text-green-700 text-xs ml-2">v2.0</span>
-            </div>
-          </a>
+           {/* Logo */}
+           <a href="#home" className="flex items-center gap-2 group">
+             <div className="relative w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center group">
+               {/* Outer glow border effect */}
+               <div className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-[#7928CA] via-[#FF0080] to-[#00FF88] bg-[length:200%_200%] animate-gradient-shift">
+                 <div className="h-full w-full bg-[#1A1B26] rounded-[10px]" />
+               </div>
+               
+               {/* Inner neon background */}
+               <div className="absolute inset-[2px] rounded-lg bg-gradient-to-br from-[#7928CA]/15 via-[#16161E] to-[#FF0080]/15" />
+               
+               {/* Rotating aura */}
+               <div className="absolute inset-0 bg-gradient-to-br from-[#7928CA]/30 via-transparent to-[#FF0080]/30 animate-spin-slow opacity-40 rounded-lg" />
+               
+               {/* Casino spinning card animation */}
+               <div className="relative z-10 scale-75 w-8 h-5">
+                 {/* Spinning 3D cards casino style */}
+                 <div className="absolute w-8 h-5 bg-gradient-to-br from-[#7928CA] to-[#5A1EA0] border border-[#9D4EDD]/80 rounded shadow-xl shadow-[#7928CA]/40 animate-spin-card1" style={{ transformOrigin: 'center' }} />
+                 <div className="absolute w-8 h-5 bg-gradient-to-br from-[#FF0080] to-[#C70068] border border-[#FF69B4]/80 rounded shadow-xl shadow-[#FF0080]/40 animate-spin-card2" style={{ transformOrigin: 'center' }} />
+                 <div className="absolute w-8 h-5 bg-gradient-to-br from-[#00FF88] to-[#00C26B] border border-[#52FFA8]/80 rounded shadow-xl shadow-[#00FF88]/40 animate-spin-card3" style={{ transformOrigin: 'center' }} />
+                 <div className="absolute w-8 h-5 bg-gradient-to-br from-[#FFD700] to-[#FF8C00] border border-[#FFD700]/80 rounded shadow-xl shadow-[#FFD700]/40 animate-spin-card4" style={{ transformOrigin: 'center' }} />
+                 {/* Center gold chip */}
+                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-white to-[#FFD700] rounded-full shadow-xl animate-pulse-glow" />
+               </div>
+             </div>
+             <div className="hidden sm:block">
+               <span className="text-green-500 font-bold tracking-wider">CARDVAULT</span>
+               <span className="text-green-700 text-xs ml-2">v2.0</span>
+             </div>
+           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
@@ -280,14 +298,7 @@ export function Navigation() {
               <span>Support</span>
             </a>
 
-            {/* Power Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-green-600 hover:text-green-400 hover:bg-green-500/10"
-            >
-              <Power className="w-4 h-4" />
-            </Button>
+
 
             {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>

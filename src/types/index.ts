@@ -19,6 +19,7 @@ export interface Product {
   reviews: number;
   image?: string;
   stockOptions?: StockOption[];
+  location?: string;
 }
 
 export interface CartItem extends Product {
@@ -39,6 +40,22 @@ export interface FAQ {
   id: string;
   question: string;
   answer: string;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  createdAt: string;
+}
+
+export interface Order {
+  id: string;
+  productName: string;
+  price: number;
+  status: 'completed' | 'pending' | 'failed';
+  createdAt: string;
+  details?: string;
 }
 
 export type Category = 'all' | 'cards' | 'ccs' | 'logs' | 'accounts' | 'tools' | 'fullz' | 'spamming-course' | 'hacking-course';

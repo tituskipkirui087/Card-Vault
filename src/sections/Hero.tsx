@@ -56,17 +56,37 @@ export function Hero() {
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" className="relative flex items-center justify-center overflow-hidden pt-16 py-8">
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div 
+            key={i}
+            className="absolute w-1 h-1 bg-green-500 rounded-full animate-float opacity-30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
+      
       {/* Scanline overlay */}
       <div className="absolute inset-0 scanline pointer-events-none z-10" />
       
       {/* CRT flicker */}
       <div className="absolute inset-0 bg-green-500/[0.02] animate-flicker pointer-events-none z-10" />
 
-      <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Terminal Window */}
-          <div className="terminal-window">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full">
+        <div className="grid lg:grid-cols-5 gap-8 items-center">
+          {/* Left: Terminal Window with animated border */}
+          <div className="relative lg:col-span-2">
+            <div className="absolute inset-0 rounded-xl p-0.5 bg-gradient-to-r from-green-500 via-yellow-400 to-green-500 bg-[length:200%_100%] animate-border-flow opacity-60">
+              <div className="h-full w-full bg-black rounded-lg" />
+            </div>
+            <div className="terminal-window relative z-10">
             {/* Terminal Header */}
             <div className="terminal-header">
               <div className="terminal-dot terminal-dot-red" />
@@ -76,7 +96,7 @@ export function Hero() {
             </div>
             
             {/* Terminal Body */}
-            <div className="terminal-body min-h-[280px] font-mono text-sm">
+            <div className="terminal-body min-h-[180px] font-mono text-xs">
               <div className="text-green-700 mb-2">$ ./boot_sequence.sh</div>
               
               <div className="space-y-1">
@@ -113,11 +133,12 @@ export function Hero() {
                   </div>
                 </div>
               )}
-            </div>
-          </div>
+         </div>
+           </div>
+         </div>
 
           {/* Right: Content */}
-          <div className="space-y-6">
+          <div className="space-y-3 lg:col-span-3">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 border-2 border-green-500 flex items-center justify-center glow-green">
                 <Terminal className="w-6 h-6 text-green-500" />
@@ -128,16 +149,14 @@ export function Hero() {
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              <span className="text-green-700 font-mono text-lg block mb-2">{'//'} blackhat_access_granted</span>
-              <span className="text-green-400 animate-glow-pulse">Elite Underground</span>
-              <br />
-              <span className="text-green-500">Card Vault</span>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-none">
+              <span className="text-[#FFD700] font-mono text-sm block">{'//'} blackhat_access_granted</span>
+              <span className="bg-gradient-to-r from-[#7928CA] via-[#FF0080] to-[#00FF88] bg-clip-text text-transparent animate-glow-pulse">Elite Underground</span>
+              <span className="text-[#9D4EDD] block">Card Vault</span>
             </h1>
 
-            <p className="text-green-600 font-mono text-sm leading-relaxed max-w-lg">
-              <span className="text-green-400">$</span> Elite blackhat arsenal: cloned cards, dumps, fullz,
-              accounts, logs & hacking tools. Anonymous transactions, encrypted delivery, underground support.
+            <p className="text-gray-400 font-mono text-xs leading-snug max-w-md">
+              <span className="text-[#00FF88]">$</span> <span className="text-gray-300">Elite arsenal:</span> <span className="text-[#FF0080]">cloned cards</span>, <span className="text-[#7928CA]">dumps</span>, <span className="text-[#FFD700]">fullz</span>, <span className="text-[#4ECDC4]">accounts</span>, <span className="text-[#FF6B6B]">logs</span> & <span className="text-[#A8E6CF]">tools</span>. Anonymous transactions, encrypted delivery.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -165,11 +184,11 @@ export function Hero() {
             </div>
 
             {/* Code snippet decoration */}
-            <div className="mt-8 p-4 border border-green-500/20 bg-black/50 font-mono text-xs text-green-700">
-              <div><span className="text-purple-400">const</span> <span className="text-yellow-400">security</span> = {'{'}</div>
-              <div className="pl-4"><span className="text-blue-400">encryption</span>: <span className="text-green-400">'AES-256'</span>,</div>
-              <div className="pl-4"><span className="text-blue-400">anonymity</span>: <span className="text-orange-400">true</span>,</div>
-              <div className="pl-4"><span className="text-blue-400">delivery</span>: <span className="text-green-400">'instant'</span></div>
+            <div className="mt-6 p-3 border border-[#7928CA]/30 bg-[#1A1B26]/90 font-mono text-xs rounded-lg shadow-lg shadow-[#7928CA]/10">
+              <div><span className="text-[#FF6B6B]">const</span> <span className="text-[#FFD700]">security</span> = {'{'}</div>
+              <div className="pl-4"><span className="text-[#7928CA]">encryption</span>: <span className="text-[#00FF88]">'AES-256'</span>,</div>
+              <div className="pl-4"><span className="text-[#7928CA]">anonymity</span>: <span className="text-[#FF0080]">true</span>,</div>
+              <div className="pl-4"><span className="text-[#7928CA]">delivery</span>: <span className="text-[#4ECDC4]">'instant'</span></div>
               <div>{'}'};</div>
             </div>
 

@@ -232,7 +232,7 @@ const tableColumns = [
   { key: 'selfies', label: 'Selfies/Facial' }
 ];
 
-export function Fullz({ onProductSold }: { onProductSold?: (productName: string, price: number, balance: number) => void }) {
+export function Fullz({ onProductSold }: { onProductSold?: (productName: string, price: number, location: string) => void }) {
   const { ref, isVisible } = useScrollAnimation();
    const { addToCart } = useCart();
    const { reduceStock } = useStore();
@@ -259,7 +259,8 @@ export function Fullz({ onProductSold }: { onProductSold?: (productName: string,
     reduceStock(entry.id, 1);
     addToCart(product);
     if (onProductSold) {
-      onProductSold(product.name, entry.price, 0);
+      const location = selectedCountry?.name || 'Global';
+      onProductSold(product.name, entry.price, location);
     }
   };
 
