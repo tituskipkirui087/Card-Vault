@@ -5,6 +5,7 @@ interface SoldNotificationProps {
   productName: string;
   price: number;
   location: string;
+  balance: number;
   onClose: () => void;
 }
 
