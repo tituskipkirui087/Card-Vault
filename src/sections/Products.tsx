@@ -25,7 +25,7 @@ const iconMap: Record<string, React.ElementType> = {
   Zap,
 };
 
-function DailyDropsCollection({ products, onProductSold }: { products: Product[]; onProductSold?: (productName: string, price: number, location: string) => void }) {
+function DailyDropsCollection({ products, onProductSold: _onProductSold }: { products: Product[]; onProductSold?: (productName: string, price: number, location: string) => void }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { addToCart } = useCart();
 
@@ -43,7 +43,7 @@ function DailyDropsCollection({ products, onProductSold }: { products: Product[]
         </div>
 
         <div className="grid gap-4">
-          {products.map((product, index) => (
+          {products.map((product, _index) => (
             <div key={product.id} className="border border-orange-500/30 bg-orange-500/5 p-4 hover:bg-orange-500/10 transition-colors">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
@@ -166,7 +166,7 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
       {/* Product ID Badge */}
       <div className="absolute top-0 left-0 bg-green-500/20 border-r border-b border-green-500/30 px-2 py-1">
         <span className="text-xs font-mono text-green-600">
-          {categoryPrefixes[product.category]}-{String(index + 1).padStart(3, '0')}
+          {categoryPrefixes[product.category]}-{String(_index + 1).padStart(3, '0')}
         </span>
       </div>
 
@@ -372,17 +372,17 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                         reduceOptionStock(product.id, selectedStockOption.price, 1);
                         addToCart(itemToAdd);
                         // Show sold notification
-                        if (onProductSold) {
+                        if (_onProductSold) {
                           const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                          onProductSold(product.name, selectedStockOption.price, location);
+                          _onProductSold(product.name, selectedStockOption.price, location);
                         }
                       } else {
                         reduceStock(product.id, 1);
                         addToCart(product);
                          // Show sold notification
-                         if (onProductSold) {
+                         if (_onProductSold) {
                            const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                           onProductSold(product.name, product.price, location);
+                           _onProductSold(product.name, product.price, location);
                          }
                       }
                     }}
@@ -404,17 +404,17 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                   reduceOptionStock(product.id, selectedStockOption.price, 1);
                   addToCart(itemToAdd);
                    // Show sold notification
-                   if (onProductSold) {
+                   if (_onProductSold) {
                      const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                     onProductSold(product.name, selectedStockOption.price, location);
+                     _onProductSold(product.name, selectedStockOption.price, location);
                    }
                 } else {
                   reduceStock(product.id, 1);
                   addToCart(product);
                    // Show sold notification
-                   if (onProductSold) {
+                   if (_onProductSold) {
                      const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                     onProductSold(product.name, product.price, location);
+                     _onProductSold(product.name, product.price, location);
                    }
                 }
               }}
