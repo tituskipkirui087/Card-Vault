@@ -93,11 +93,14 @@ function DailyDropsCollection({ products, onProductSold }: { products: Product[]
                     </div>
                     <Button
                       onClick={() => {
-                        // Add to cart with selected option
-                        addToCart({
+                        // Add to cart with selected option details
+                        const productWithOption = {
                           ...selectedProduct,
-                          selectedStockOption: option
-                        });
+                          name: `${selectedProduct.name} | ${option.quality}`,
+                          price: option.price,
+                          id: `${selectedProduct.id}-${option.quality?.replace(/\s+/g, '-').toLowerCase()}`
+                        };
+                        addToCart(productWithOption);
                         setSelectedProduct(null);
                       }}
                       className="bg-orange-500 hover:bg-orange-600 text-black font-mono"
@@ -115,7 +118,7 @@ function DailyDropsCollection({ products, onProductSold }: { products: Product[]
   );
 }
 
-function ProductCard({ product, index, onProductSold }: { product: Product; index: number; onProductSold?: (productName: string, price: number, location: string) => void }) {
+function ProductCard({ product, index: _index, onProductSold: _onProductSold }: { product: Product; index: number; onProductSold?: (productName: string, price: number, location: string) => void }) {
   const { addToCart } = useCart();
   const { products: storeProducts, reduceStock, reduceOptionStock } = useStore();
   const currentProduct = storeProducts.find(p => p.id === product.id) || product;
