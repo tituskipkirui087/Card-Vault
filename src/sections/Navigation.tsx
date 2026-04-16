@@ -154,24 +154,44 @@ export function Navigation() {
                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-white to-[#FFD700] rounded-full shadow-xl animate-pulse-glow" />
                </div>
              </div>
-             <div className="hidden sm:block">
-               <span className="text-green-500 font-bold tracking-wider">CARDVAULT</span>
-               <span className="text-green-700 text-xs ml-2">v2.0</span>
-             </div>
+              <div className="hidden sm:block">
+                <span className="text-green-500 font-bold tracking-wider font-mono">
+                  <span className="text-red-500">C</span>
+                  <span className="text-orange-500">4</span>
+                  <span className="text-yellow-500">R</span>
+                  <span className="text-green-500">D</span>
+                  <span className="text-cyan-500">_</span>
+                  <span className="text-blue-500">V</span>
+                  <span className="text-purple-500">4</span>
+                  <span className="text-pink-500">U</span>
+                  <span className="text-red-500">L</span>
+                  <span className="text-orange-500">T</span>
+                </span>
+                <span className="text-green-700 text-xs ml-2 font-mono">[v2.0]</span>
+              </div>
            </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="px-3 py-1.5 text-xs text-green-600 hover:text-green-400 transition-colors rounded border border-transparent hover:border-green-500/30"
-              >
-                ./{link.name}
-              </a>
-            ))}
-          </div>
+           {/* Desktop Navigation */}
+           <div className="hidden lg:flex items-center gap-1">
+             {navLinks.map((link) => (
+               <a
+                 key={link.name}
+                 href={link.href}
+                 className="px-3 py-1.5 text-xs font-mono transition-colors rounded border border-transparent hover:border-green-500/30"
+               >
+                 <span className="text-cyan-400">.</span>
+                 <span className="text-green-400">/</span>
+                 {link.name.split('').map((char, index) => {
+                   const colors = ['text-red-400', 'text-orange-400', 'text-yellow-400', 'text-green-400', 'text-cyan-400', 'text-blue-400', 'text-purple-400', 'text-pink-400'];
+                   return (
+                     <span key={index} className={`${colors[index % colors.length]} hover:brightness-125 transition-all`}>
+                       {char}
+                     </span>
+                   );
+                 })}
+               </a>
+             ))}
+           </div>
 
           {/* Right Side */}
           <div className="flex items-center gap-3">
@@ -189,10 +209,13 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="text-green-600 hover:text-green-400 hover:bg-green-500/10"
+              className="hover:bg-green-500/10 transition-all"
               onClick={() => setSearchOpen(true)}
             >
-              <Search className="w-4 h-4" />
+              <div className="relative">
+                <Search className="w-4 h-4 absolute inset-0 rainbow-icon" />
+                <Search className="w-4 h-4 relative z-10 text-green-600" />
+              </div>
             </Button>
 
             <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
@@ -272,10 +295,13 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="relative text-green-600 hover:text-green-400 hover:bg-green-500/10"
+              className="relative hover:bg-green-500/10 transition-all"
               onClick={() => setIsOpen(true)}
             >
-              <ShoppingCart className="w-4 h-4" />
+              <div className="relative">
+                <ShoppingCart className="w-4 h-4 absolute inset-0 rainbow-icon" />
+                <ShoppingCart className="w-4 h-4 relative z-10 text-green-600" />
+              </div>
               {totalItems > 0 && (
                 <Badge
                   variant="default"
@@ -295,7 +321,10 @@ export function Navigation() {
               rel="noopener noreferrer"
               className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs text-green-600 hover:text-green-400 transition-colors rounded border border-green-500/30 hover:border-green-500/50 bg-green-500/5"
             >
-              <MessageCircle className="w-3.5 h-3.5" />
+              <div className="relative">
+                <MessageCircle className="w-3.5 h-3.5 absolute inset-0 rainbow-icon-small" />
+                <MessageCircle className="w-3.5 h-3.5 relative z-10 text-green-600" />
+              </div>
               <span>Support</span>
             </a>
 
@@ -304,14 +333,20 @@ export function Navigation() {
             {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" className="text-green-600">
-                  <Menu className="w-4 h-4" />
+                <Button variant="ghost" size="icon" className="transition-all">
+                  <div className="relative">
+                    <Menu className="w-4 h-4 absolute inset-0 rainbow-icon" />
+                    <Menu className="w-4 h-4 relative z-10 text-green-600" />
+                  </div>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-72 bg-black border-l border-green-500/30">
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2 text-green-500">
-                    <Terminal className="w-5 h-5" />
+                    <div className="relative">
+                      <Terminal className="w-5 h-5 absolute inset-0 rainbow-icon-medium" />
+                      <Terminal className="w-5 h-5 relative z-10 text-green-500" />
+                    </div>
                     <span className="font-mono">menu.sh</span>
                   </SheetTitle>
                 </SheetHeader>
@@ -321,9 +356,17 @@ export function Navigation() {
                       key={link.name}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="px-4 py-3 text-sm text-green-600 hover:text-green-400 hover:bg-green-500/10 border border-transparent hover:border-green-500/30 transition-colors"
+                      className="px-4 py-3 text-sm hover:bg-green-500/10 border border-transparent hover:border-green-500/30 transition-colors"
                     >
-                      <span className="text-green-800">[{index + 1}]</span> {link.name}
+                      <span className="text-green-800 font-mono">[{index + 1}]</span>
+                      {link.name.split('').map((char, charIndex) => {
+                        const colors = ['text-red-400', 'text-orange-400', 'text-yellow-400', 'text-green-400', 'text-cyan-400', 'text-blue-400', 'text-purple-400', 'text-pink-400'];
+                        return (
+                          <span key={charIndex} className={`${colors[charIndex % colors.length]} hover:brightness-125 transition-all`}>
+                            {char}
+                          </span>
+                        );
+                      })}
                     </a>
                   ))}
                 </div>

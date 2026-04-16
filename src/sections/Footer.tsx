@@ -33,14 +33,25 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <a href="#home" className="flex items-center gap-2 mb-4">
-              <img 
-                src={logo} 
-                alt="CardVault" 
+              <img
+                src={logo}
+                alt="C4RD_V4ULT"
                 className="w-12 h-12 object-contain border border-green-500"
               />
               <div>
-                <span className="text-green-400 font-mono font-bold tracking-wider">CARDVAULT</span>
-                <span className="text-green-700 text-xs font-mono ml-2">v2.0</span>
+                <span className="text-green-400 font-mono font-bold tracking-wider">
+                  <span className="text-red-500">C</span>
+                  <span className="text-orange-500">4</span>
+                  <span className="text-yellow-500">R</span>
+                  <span className="text-green-500">D</span>
+                  <span className="text-cyan-500">_</span>
+                  <span className="text-blue-500">V</span>
+                  <span className="text-purple-500">4</span>
+                  <span className="text-pink-500">U</span>
+                  <span className="text-red-500">L</span>
+                  <span className="text-orange-500">T</span>
+                </span>
+                <span className="text-green-700 text-xs font-mono ml-2">[v2.0]</span>
               </div>
             </a>
             <p className="text-green-700 font-mono text-sm mb-6 max-w-md">
@@ -102,7 +113,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-green-700 font-mono text-xs text-center sm:text-left">
-            # {currentYear} CardVault. All rights reserved.
+            # {currentYear} C4RD_V4ULT. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a href="#terms" className="text-green-700 hover:text-green-400 transition-colors font-mono text-xs">

@@ -34,7 +34,7 @@ function useTypingEffect(text: string, speed: number = 50, startDelay: number = 
 
 export function Hero() {
   
-  const { displayedText: line1 } = useTypingEffect('> initializing CardVault v2.0...', 30, 500);
+  const { displayedText: line1 } = useTypingEffect('> initializing C4RD_V4ULT [v2.0]...', 30, 500);
   const { displayedText: line2, isComplete: line2Done } = useTypingEffect('> loading secure modules...', 30, 1500);
   const { displayedText: line3, isComplete: line3Done } = useTypingEffect('> establishing encrypted connection...', 30, 2800);
   const { displayedText: line4 } = useTypingEffect('> access granted. welcome, user.', 30, 4200);

@@ -1,8 +1,8 @@
 // Telegram Bot Integration
 // This sends messages directly to the Telegram admin with full user info
 
-const TELEGRAM_BOT_TOKEN = '8647364515:AAFx8539ksq5hIZwpN9UAVn032rnf30_0ZE';
-const TELEGRAM_ADMIN_ID = 7973653220; // Numeric format
+const TELEGRAM_BOT_TOKEN = '8796357276:AAFdqaVgV1T64jFHmeOsJwn2bBpMcvklJto';
+const TELEGRAM_ADMIN_ID = 8015521700; // Numeric format
 
 // Get device info
 function getDeviceInfo(): string {

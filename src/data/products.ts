@@ -917,7 +917,415 @@ export const products: Product[] = [
     stock: 30,
     rating: 4.9,
     reviews: 89
-  }
+  },
+
+  // Daily Drops Category
+  {
+    id: 'daily-ihg',
+    name: 'IHG',
+    description: 'Full access || email || login',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Access', 'Email Included', 'Login Credentials'],
+    stock: 10,
+    rating: 4.7,
+    reviews: 89,
+    stockOptions: [
+      { price: 45, balance: 250000, stock: 2, quality: '250k+ Points' },
+      { price: 60, balance: 500000, stock: 3, quality: '500K+ Points' },
+      { price: 100, balance: 1000000, stock: 3, quality: '1M+ Points' },
+      { price: 185, balance: 2000000, stock: 1, quality: '2M+ Points' },
+      { price: 400, balance: 4000000, stock: 1, quality: '4M+ Points' }
+    ]
+  },
+  {
+    id: 'daily-1',
+    name: 'BEST BUY',
+    description: 'Full access || email || login',
+    price: 50,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Access', 'Email Included', 'Login Credentials'],
+    stock: 15,
+    rating: 4.6,
+    reviews: 156,
+    stockOptions: [
+      { price: 100, balance: 3500, stock: 5, quality: '+ Credit [$3500 REWARD]' },
+      { price: 50, balance: 1400, stock: 5, quality: '+ Credit [$1400 REWARD]' },
+      { price: 250, balance: 5000, stock: 3, quality: '+ Credit [$5000 REWARD]' },
+      { price: 500, balance: 7400, stock: 2, quality: '+ Credit [$7,400 REWARD]' }
+    ]
+  },
+  {
+    id: 'daily-2',
+    name: 'FANDULE',
+    description: 'Fandules fa || login || email',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Access', 'Login Credentials', 'Email Included'],
+    stock: 12,
+    rating: 4.8,
+    reviews: 67,
+    stockOptions: [
+      { price: 250, balance: 6500, stock: 4, quality: '[ $6,500 ]' },
+      { price: 120, balance: 4000, stock: 4, quality: '[ $4,000 ]' },
+      { price: 45, balance: 2500, stock: 4, quality: '[ $2,500 ] BAL' }
+    ]
+  },
+  {
+    id: 'daily-3',
+    name: 'PRE PAY',
+    description: 'Prepay fa logs || full email access',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Access Logs', 'Full Email Access'],
+    stock: 18,
+    rating: 4.5,
+    reviews: 123,
+    stockOptions: [
+      { price: 80, balance: 2500, stock: 6, quality: '[ $2,500 ]' },
+      { price: 45, balance: 1200, stock: 12, quality: '[ $1,200 ]' }
+    ]
+  },
+  {
+    id: 'daily-4',
+    name: 'OTP BOT',
+    description: 'Otp bot || bypass || codes || emails',
+    price: 65,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['OTP Bypass', 'Codes Included', 'Emails Access'],
+    stock: 10,
+    rating: 4.9,
+    reviews: 45,
+    stockOptions: [
+      { price: 65, balance: 0, stock: 3, quality: '[4 DAYS]' },
+      { price: 250, balance: 0, stock: 3, quality: '[LIFETIME]' },
+      { price: 150, balance: 0, stock: 4, quality: '[WEEKLY]' }
+    ]
+  },
+  {
+    id: 'daily-5',
+    name: 'BLITZ CC [ ACC ]',
+    description: 'CC || CVV || ACCESS',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['CC Access', 'CVV Included', 'Full Access'],
+    stock: 8,
+    rating: 4.7,
+    reviews: 89,
+    stockOptions: [
+      { price: 85, balance: 4500, stock: 3, quality: '+ FA [ $4,500 ]' },
+      { price: 45, balance: 2500, stock: 5, quality: '+ FA [ $2,500 ]' }
+    ]
+  },
+  {
+    id: 'daily-6',
+    name: 'CASH APP FA',
+    description: 'Cashapp full access with all plugins',
+    price: 50,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Access', 'All Plugins', 'Bitcoin Enabled'],
+    stock: 14,
+    rating: 4.6,
+    reviews: 134,
+    stockOptions: [
+      { price: 50, balance: 2000, stock: 5, quality: 'FA [ $2,000 ]' },
+      { price: 100, balance: 4000, stock: 9, quality: 'FA [ $4,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-7',
+    name: 'DISCOVER',
+    description: 'Account || email || access',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Account Access', 'Email Included', 'Full Access'],
+    stock: 20,
+    rating: 4.5,
+    reviews: 178,
+    stockOptions: [
+      { price: 45, balance: 2000, stock: 7, quality: 'CC + CVV [ $2,000 ]' },
+      { price: 80, balance: 3500, stock: 7, quality: 'CC + CVV [ $3,500 ]' },
+      { price: 150, balance: 5000, stock: 6, quality: 'CC + CVV [ $5,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-8',
+    name: 'PAYPAL',
+    description: 'Account || Email || Access',
+    price: 70,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Account Access', 'Email Included', 'Full Access'],
+    stock: 11,
+    rating: 4.8,
+    reviews: 145,
+    stockOptions: [
+      { price: 70, balance: 1500, stock: 4, quality: 'Verified [ $1,500 ]' },
+      { price: 110, balance: 2500, stock: 4, quality: 'Business [ $2,500 ]' },
+      { price: 180, balance: 5000, stock: 2, quality: 'Merchant [ $5,000 ]' },
+      { price: 300, balance: 10000, stock: 1, quality: 'Premium [ $10,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-9',
+    name: 'CHIME',
+    description: 'Full email access',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Email Access'],
+    stock: 16,
+    rating: 4.6,
+    reviews: 98,
+    stockOptions: [
+      { price: 45, balance: 1000, stock: 6, quality: '[ $1,000 ]' },
+      { price: 70, balance: 2500, stock: 6, quality: '[ $2,500 ]' },
+      { price: 115, balance: 5000, stock: 3, quality: '[ $5,000 ]' },
+      { price: 190, balance: 10000, stock: 1, quality: '[ $10,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-10',
+    name: 'HILTON',
+    description: 'Hotel log || Email || access',
+    price: 65,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Hotel Account', 'Email Included', 'Full Access'],
+    stock: 13,
+    rating: 4.7,
+    reviews: 112,
+    stockOptions: [
+      { price: 65, balance: 50000, stock: 4, quality: '50K Points' },
+      { price: 100, balance: 100000, stock: 4, quality: '100K Points' },
+      { price: 165, balance: 200000, stock: 3, quality: '200K Points' },
+      { price: 275, balance: 500000, stock: 2, quality: '500K Points' }
+    ]
+  },
+  {
+    id: 'daily-11',
+    name: 'ACORN FA + BAL',
+    description: 'ACORN FA || MAIL || BAL..',
+    price: 75,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Full Access', 'Mail Included', 'Balance Available'],
+    stock: 9,
+    rating: 4.8,
+    reviews: 76,
+    stockOptions: [
+      { price: 75, balance: 2500, stock: 3, quality: '[ $2,500 ]' },
+      { price: 115, balance: 5000, stock: 3, quality: '[ $5,000 ]' },
+      { price: 190, balance: 10000, stock: 2, quality: '[ $10,000 ]' },
+      { price: 320, balance: 25000, stock: 1, quality: '[ $25,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-12',
+    name: 'ABC PROXY',
+    description: 'PROXY || BYPASS',
+    price: 30,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Proxy Service', 'Bypass Capabilities'],
+    stock: 25,
+    rating: 4.4,
+    reviews: 189,
+    stockOptions: [
+      { price: 30, balance: 0, stock: 9, quality: '[MONTHLY]' },
+      { price: 50, balance: 0, stock: 9, quality: '[QUARTERLY]' },
+      { price: 80, balance: 0, stock: 5, quality: '[6 MONTHS]' },
+      { price: 130, balance: 0, stock: 2, quality: '[YEARLY]' }
+    ]
+  },
+  {
+    id: 'daily-13',
+    name: 'ULTA + BAL',
+    description: 'ULTA || BAL || EMAIL || ACCESS',
+    price: 35,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Account Access', 'Balance Included', 'Email Included', 'Full Access'],
+    stock: 17,
+    rating: 4.5,
+    reviews: 145,
+    stockOptions: [
+      { price: 35, balance: 2000, stock: 8, quality: '[$2,0OO]' },
+      { price: 65, balance: 3500, stock: 9, quality: '[$3,5OO]' }
+    ]
+  },
+  {
+    id: 'daily-14',
+    name: 'VANILLA PREPAID CC+CVV',
+    description: 'CC+CVV || MAIL ACCESS || BY PASS',
+    price: 85,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['CC+CVV', 'Mail Access', 'Bypass Ready'],
+    stock: 7,
+    rating: 4.7,
+    reviews: 89,
+    stockOptions: [
+      { price: 85, balance: 1000, stock: 2, quality: '[ $1,000 ]' },
+      { price: 130, balance: 2500, stock: 2, quality: '[ $2,500 ]' },
+      { price: 215, balance: 5000, stock: 2, quality: '[ $5,000 ]' },
+      { price: 360, balance: 10000, stock: 1, quality: '[ $10,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-15',
+    name: 'CMX BYPASS',
+    description: 'LOG || CODE || MAIL',
+    price: 55,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Log Included', 'Code Access', 'Mail Included'],
+    stock: 12,
+    rating: 4.8,
+    reviews: 67,
+    stockOptions: [
+      { price: 55, balance: 0, stock: 4, quality: '[STANDARD]' },
+      { price: 85, balance: 0, stock: 4, quality: '[PREMIUM]' },
+      { price: 140, balance: 0, stock: 3, quality: '[ENTERPRISE]' },
+      { price: 235, balance: 0, stock: 1, quality: '[ULTIMATE]' }
+    ]
+  },
+  {
+    id: 'daily-16',
+    name: 'EMAIL & SMS BOOMBER',
+    description: 'MAIL|| ACCESS',
+    price: 35,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Email Access', 'SMS Bomber'],
+    stock: 22,
+    rating: 4.6,
+    reviews: 123,
+    stockOptions: [
+      { price: 35, balance: 0, stock: 8, quality: '[10K MESSAGES]' },
+      { price: 55, balance: 0, stock: 8, quality: '[25K MESSAGES]' },
+      { price: 90, balance: 0, stock: 4, quality: '[50K MESSAGES]' },
+      { price: 150, balance: 0, stock: 2, quality: '[100K MESSAGES]' }
+    ]
+  },
+  {
+    id: 'daily-17',
+    name: 'AMAZON FA',
+    description: 'LOG || ACCESS || MAIL',
+    price: 60,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Log Included', 'Full Access', 'Mail Included'],
+    stock: 14,
+    rating: 4.7,
+    reviews: 156,
+    stockOptions: [
+      { price: 60, balance: 500, stock: 5, quality: '[ $500 CREDIT ]' },
+      { price: 95, balance: 1000, stock: 5, quality: '[ $1,000 CREDIT ]' },
+      { price: 155, balance: 2000, stock: 3, quality: '[ $2,000 CREDIT ]' },
+      { price: 260, balance: 5000, stock: 1, quality: '[ $5,000 CREDIT ]' }
+    ]
+  },
+  {
+    id: 'daily-18',
+    name: 'DAILY PAY FA',
+    description: 'LOG || ACCESS || MAIL',
+    price: 65,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Log Included', 'Full Access', 'Mail Included'],
+    stock: 11,
+    rating: 4.8,
+    reviews: 89,
+    stockOptions: [
+      { price: 65, balance: 1000, stock: 4, quality: '[ $1,000 ]' },
+      { price: 100, balance: 2000, stock: 4, quality: '[ $2,000 ]' },
+      { price: 165, balance: 5000, stock: 2, quality: '[ $5,000 ]' },
+      { price: 275, balance: 10000, stock: 1, quality: '[ $10,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-19',
+    name: 'SOUTHWEST FLIGHTS',
+    description: 'LOG | FLIGHT | EMAILS',
+    price: 75,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Log Included', 'Flight Access', 'Emails Included'],
+    stock: 9,
+    rating: 4.9,
+    reviews: 67,
+    stockOptions: [
+      { price: 75, balance: 50000, stock: 3, quality: '50K Points' },
+      { price: 115, balance: 100000, stock: 3, quality: '100K Points' },
+      { price: 190, balance: 200000, stock: 2, quality: '200K Points' },
+      { price: 320, balance: 500000, stock: 1, quality: '500K Points' }
+    ]
+  },
+  {
+    id: 'daily-20',
+    name: 'WALMART FA',
+    description: 'LOG = ACCESS = MAIL',
+    price: 45,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Log Included', 'Full Access', 'Mail Included'],
+    stock: 19,
+    rating: 4.5,
+    reviews: 178,
+    stockOptions: [
+      { price: 45, balance: 500, stock: 7, quality: '[ $500 ]' },
+      { price: 70, balance: 1000, stock: 7, quality: '[ $1,000 ]' },
+      { price: 115, balance: 2000, stock: 4, quality: '[ $2,000 ]' },
+      { price: 190, balance: 5000, stock: 1, quality: '[ $5,000 ]' }
+    ]
+  },
+  {
+    id: 'daily-21',
+    name: 'KLARNA FA +ID',
+    description: 'LOG = ACCESS = MAIL',
+    price: 80,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['Log Included', 'Full Access', 'Mail Included'],
+    stock: 8,
+    rating: 4.8,
+    reviews: 45,
+    stockOptions: [
+      { price: 80, balance: 1000, stock: 3, quality: '[ $1,000 LIMIT ]' },
+      { price: 125, balance: 2500, stock: 3, quality: '[ $2,500 LIMIT ]' },
+      { price: 205, balance: 5000, stock: 1, quality: '[ $5,000 LIMIT ]' },
+      { price: 345, balance: 10000, stock: 1, quality: '[ $10,000 LIMIT ]' }
+    ]
+  },
+  {
+    id: 'daily-22',
+    name: 'Enrolls Cc',
+    description: 'Cc | Mail Access | Codes',
+    price: 90,
+    category: 'daily-drops',
+    badge: 'Daily Drop',
+    features: ['CC Account', 'Mail Access', 'Codes Included'],
+    stock: 6,
+    rating: 4.7,
+    reviews: 89,
+    stockOptions: [
+      { price: 90, balance: 500, stock: 2, quality: '[ $500 REWARD ]' },
+      { price: 140, balance: 1000, stock: 2, quality: '[ $1,000 REWARD ]' },
+      { price: 230, balance: 2000, stock: 1, quality: '[ $2,000 REWARD ]' },
+      { price: 385, balance: 5000, stock: 1, quality: '[ $5,000 REWARD ]' }
+    ]
+  },
+
+
 ];
 
 export const testimonials: Testimonial[] = [
@@ -962,7 +1370,7 @@ export const testimonials: Testimonial[] = [
     name: 'David L.',
     avatar: 'DL',
     rating: 5,
-    comment: 'Been using CardVault for months now. Never had a bad experience. Their bank logs are fresh and working. 10/10 service!',
+    comment: 'Been using C4RD_V4ULT for months now. Never had a bad experience. Their bank logs are fresh and working. 10/10 service!',
     date: '2025-10-22',
     verified: true
   },
@@ -1019,5 +1427,6 @@ export const categories = [
   { id: 'tools', name: 'Tools', icon: 'Wrench' },
   { id: 'fullz', name: 'Fullz', icon: 'FileText' },
   { id: 'spamming-course', name: 'Spamming Full Course', icon: 'Mail' },
-  { id: 'hacking-course', name: 'Advanced Hacking Course', icon: 'Shield' }
+  { id: 'hacking-course', name: 'Advanced Hacking Course', icon: 'Shield' },
+  { id: 'daily-drops', name: 'Daily Drops', icon: 'Zap' }
 ] as const;

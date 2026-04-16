@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   ShoppingCart, CreditCard, Link, Database,
-  UserCircle, Wrench, Terminal, Eye, ChevronRight, Hash, FileText, ChevronUp, ChevronDown
+  UserCircle, Wrench, Terminal, Eye, ChevronRight, Hash, FileText, ChevronUp, ChevronDown, Zap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -22,7 +22,98 @@ const iconMap: Record<string, React.ElementType> = {
   UserCircle,
   Wrench,
   FileText,
+  Zap,
 };
+
+function DailyDropsCollection({ products, onProductSold }: { products: Product[]; onProductSold?: (productName: string, price: number, location: string) => void }) {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { addToCart } = useCart();
+
+  return (
+    <>
+      <div className="border border-orange-500/50 bg-orange-500/5 p-6">
+        <div className="mb-6">
+          <h3 className="text-2xl font-bold text-orange-400 mb-2 flex items-center gap-2">
+            <Zap className="w-6 h-6" />
+            Daily Drops Collection
+          </h3>
+          <p className="text-orange-600 font-mono text-sm">
+            ⚡ Fresh daily drops that change frequently when stock is exhausted. Renewed daily with new inventory.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          {products.map((product, index) => (
+            <div key={product.id} className="border border-orange-500/30 bg-orange-500/5 p-4 hover:bg-orange-500/10 transition-colors">
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
+                  <h4 className="font-semibold text-orange-300 mb-1">{product.name}</h4>
+                  <p className="text-orange-600 text-sm mb-2">{product.description}</p>
+                  <div className="flex items-center gap-4 text-sm">
+                    <span className="text-green-400 font-mono">from ${product.price}</span>
+                  </div>
+                </div>
+                  <div className="ml-4">
+                  <Button
+                    onClick={() => setSelectedProduct(product)}
+                    className="bg-orange-500 hover:bg-orange-600 text-black font-mono text-xs px-3 py-1"
+                  >
+                    View
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Product Details Dialog */}
+      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
+        <DialogContent className="max-w-2xl bg-surface0 text-surface0PrimaryText border-surface0Border">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-orange-400 flex items-center gap-2">
+              <Zap className="w-6 h-6" />
+              {selectedProduct?.name}
+            </DialogTitle>
+          </DialogHeader>
+
+          {selectedProduct && (
+            <div className="space-y-4">
+              <p className="text-surface0SecondaryText">{selectedProduct.description}</p>
+
+              <div className="space-y-3">
+                {selectedProduct.stockOptions?.map((option, index) => (
+                  <div key={index} className="border border-orange-500/30 bg-orange-500/5 p-4 flex justify-between items-center">
+                    <div>
+                      <h4 className="font-semibold text-orange-300">{selectedProduct.name} | {option.quality}</h4>
+                      <div className="flex items-center gap-4 text-sm mt-1">
+                        <span className="text-green-400 font-mono">from ${option.price}</span>
+                        <span className="text-orange-400">{option.stock} ({option.stock}) In Stock</span>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        // Add to cart with selected option
+                        addToCart({
+                          ...selectedProduct,
+                          selectedStockOption: option
+                        });
+                        setSelectedProduct(null);
+                      }}
+                      className="bg-orange-500 hover:bg-orange-600 text-black font-mono"
+                    >
+                      Buy Now
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
 
 function ProductCard({ product, index, onProductSold }: { product: Product; index: number; onProductSold?: (productName: string, price: number, location: string) => void }) {
   const { addToCart } = useCart();
@@ -46,6 +137,7 @@ function ProductCard({ product, index, onProductSold }: { product: Product; inde
     accounts: 'border-yellow-500/50',
     tools: 'border-red-500/50',
     fullz: 'border-pink-500/50',
+    'daily-drops': 'border-orange-500/50',
   };
 
   const categoryPrefixes: Record<string, string> = {
@@ -761,14 +853,25 @@ export function Products({ onProductSold }: { onProductSold?: (productName: stri
                 variant={activeCategory === category.id ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setActiveCategory(category.id as Category)}
-                className={`font-mono text-xs ${
-                  activeCategory === category.id 
-                    ? 'bg-green-500 text-black border-green-500' 
+                className={`font-mono text-xs relative overflow-hidden ${
+                  category.id === 'daily-drops'
+                    ? 'fire-category-button'
+                    : activeCategory === category.id
+                    ? 'bg-green-500 text-black border-green-500'
                     : 'border-green-500/30 text-green-600 hover:bg-green-500/10 hover:text-green-400'
                 }`}
               >
                 <Icon className="w-3 h-3 mr-1" />
-                {category.id}
+                <span className="relative z-10">{category.id}</span>
+                {category.id === 'daily-drops' && (
+                  <div className="fire-flames-category">
+                    <div className="flame-core"></div>
+                    <div className="flame-outer"></div>
+                    <div className="flame-spark-1"></div>
+                    <div className="flame-spark-2"></div>
+                    <div className="flame-spark-3"></div>
+                  </div>
+                )}
               </Button>
             );
           })}
@@ -777,6 +880,8 @@ export function Products({ onProductSold }: { onProductSold?: (productName: stri
         {/* Products Grid */}
         {activeCategory === 'fullz' ? (
           <FullzInventory onProductSold={onProductSold} />
+        ) : activeCategory === 'daily-drops' ? (
+          <DailyDropsCollection products={filteredProducts} onProductSold={onProductSold} />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredProducts.map((product, index) => (
