@@ -51,15 +51,13 @@ function DailyDropsCollection({ products, onProductSold: _onProductSold }: { pro
                   <p className="text-orange-600 text-sm mb-2">{product.description}</p>
                   <div className="flex items-center gap-4 text-sm">
                     <span className="text-green-400 font-mono">from ${product.price}</span>
+                    <Button
+                      onClick={() => setSelectedProduct(product)}
+                      className="bg-orange-500 hover:bg-orange-600 text-black font-mono text-xs px-3 py-1"
+                    >
+                      View
+                    </Button>
                   </div>
-                </div>
-                  <div className="ml-4">
-                  <Button
-                    onClick={() => setSelectedProduct(product)}
-                    className="bg-orange-500 hover:bg-orange-600 text-black font-mono text-xs px-3 py-1"
-                  >
-                    View
-                  </Button>
                 </div>
               </div>
             </div>
@@ -277,17 +275,41 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
              ) : (
                <div className="text-[#95E1D3] text-xs mb-1">Stock: {totalOptionStock}</div>
              )}
-             <span className="text-[#F38181]">$</span>
-             <span className="text-[#A8E6CF] text-xl font-bold">
-               {selectedStockOption ? selectedStockOption.price : currentProduct.price}
-             </span>
-             <span className="text-[#88D8B0]">.00</span>
-            {product.originalPrice && (
-              <span className="text-green-800 text-sm line-through ml-2">${product.originalPrice}</span>
-            )}
-          </div>
-          
-          <div className="flex gap-2">
+<span className="text-[#F38181]">$</span>
+              <span className="text-[#A8E6CF] text-xl font-bold">
+                {selectedStockOption ? selectedStockOption.price : currentProduct.price}
+              </span>
+              <span className="text-[#88D8B0]">.00</span>
+              {product.originalPrice && (
+                <span className="text-green-800 text-sm line-through ml-2">${product.originalPrice}</span>
+              )}
+            </div>
+            <div className="flex items-center gap-2 pt-3 border-t border-green-500/20">
+            <Button 
+              size="sm"
+              onClick={() => {
+                if (selectedStockOption) {
+                  const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
+                  reduceOptionStock(product.id, selectedStockOption.price, 1);
+                  addToCart(itemToAdd);
+                  if (_onProductSold) {
+                    const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                    _onProductSold(product.name, selectedStockOption.price, location);
+                  }
+                } else {
+                  reduceStock(product.id, 1);
+                  addToCart(product);
+                  if (_onProductSold) {
+                    const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                    _onProductSold(product.name, product.price, location);
+                  }
+                }
+              }}
+              disabled={totalOptionStock === 0 || (selectedStockOption ? (currentProduct.stockOptions?.find(o => o.price === selectedStockOption.price)?.stock ?? selectedStockOption.stock) === 0 : false)}
+              className={`bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black ${totalOptionStock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+>
+              <ShoppingCart className="w-4 h-4" />
+            </Button>
             <Dialog>
               <DialogTrigger asChild>
                 <Button 
@@ -364,14 +386,12 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                     </div>
                   </div>
                   
-                  <Button 
+<Button 
                     onClick={() => {
                       if (selectedStockOption) {
                         const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
-                        // Reduce option-specific stock when adding to cart
                         reduceOptionStock(product.id, selectedStockOption.price, 1);
                         addToCart(itemToAdd);
-                        // Show sold notification
                         if (_onProductSold) {
                           const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
                           _onProductSold(product.name, selectedStockOption.price, location);
@@ -379,11 +399,10 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                       } else {
                         reduceStock(product.id, 1);
                         addToCart(product);
-                         // Show sold notification
-                         if (_onProductSold) {
-                           const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                           _onProductSold(product.name, product.price, location);
-                         }
+                        if (_onProductSold) {
+                          const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                          _onProductSold(product.name, product.price, location);
+                        }
                       }
                     }}
                     className="w-full bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black font-mono"
@@ -394,35 +413,6 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                 </div>
               </DialogContent>
             </Dialog>
-
-            <Button 
-              size="sm"
-              onClick={() => {
-                if (selectedStockOption) {
-                  const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
-                  // Reduce option-specific stock when adding to cart
-                  reduceOptionStock(product.id, selectedStockOption.price, 1);
-                  addToCart(itemToAdd);
-                   // Show sold notification
-                   if (_onProductSold) {
-                     const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                     _onProductSold(product.name, selectedStockOption.price, location);
-                   }
-                } else {
-                  reduceStock(product.id, 1);
-                  addToCart(product);
-                   // Show sold notification
-                   if (_onProductSold) {
-                     const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                     _onProductSold(product.name, product.price, location);
-                   }
-                }
-              }}
-              disabled={totalOptionStock === 0 || (selectedStockOption ? (currentProduct.stockOptions?.find(o => o.price === selectedStockOption.price)?.stock ?? selectedStockOption.stock) === 0 : false)}
-              className={`bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black ${totalOptionStock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              <ShoppingCart className="w-4 h-4" />
-            </Button>
           </div>
         </div>
       </CardContent>
