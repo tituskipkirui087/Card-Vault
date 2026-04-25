@@ -88,7 +88,7 @@ export function Privacy() {
             <section>
               <h2 className="text-green-400 font-bold mb-2">8. Contact Us</h2>
               <p className="text-sm">
-                For questions about this privacy policy, please contact us at @Ryancardsplug on Telegram.
+                For questions about this privacy policy, please contact us at @cardvaultstore on Telegram.
               </p>
             </section>
 

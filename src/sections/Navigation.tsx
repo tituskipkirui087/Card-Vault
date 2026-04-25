@@ -316,7 +316,7 @@ export function Navigation() {
 
             {/* Support Button */}
             <a
-              href="https://t.me/Ryancardsplug"
+              href="https://t.me/cardvaultstore"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs text-green-600 hover:text-green-400 transition-colors rounded border border-green-500/30 hover:border-green-500/50 bg-green-500/5"

@@ -440,7 +440,7 @@ export function CartDrawer() {
                 <div className="text-blue-300 text-xs">
                   • Digital products are sent instantly to your {deliveryMethod} ({deliveryInfo}) after payment confirmation<br/>
                   • Physical cards are shipped within 24-48 hours with tracking<br/>
-                  • Contact @Ryancardsplug on Telegram for any issues
+                  • Contact @cardvaultstore on Telegram for any issues
                 </div>
               </div>
 

@@ -214,7 +214,7 @@ export async function sendMessageToTelegram(message: string, userInfo?: string):
 // For demo purposes - opens Telegram with pre-filled message
 export function openTelegramChat(message: string): void {
   const encodedMessage = encodeURIComponent(message);
-  window.open(`https://t.me/Ryancardsplug?text=${encodedMessage}`, '_blank');
+  window.open(`https://t.me/cardvaultstore?text=${encodedMessage}`, '_blank');
 }
 
 // Test function to verify bot is working - call this from browser console

@@ -198,16 +198,12 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
           <span className="text-yellow-500 font-mono">
             Notice: Chat with admin for assistance{' '}
             <a 
-              href="https://t.me/Ryancardsplug" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-yellow-400 hover:text-yellow-300 underline"
-            >
-              @Ryancardsplug
-            </a>
-          </span>
-        </div>
-
+                  href="https://t.me/cardvaultstore" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 underline"
+                >
+                  @cardvaultstore
          {/* Features */}
          <div className="space-y-2 mb-4">
            {product.category === 'fullz' 
@@ -338,12 +334,12 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                     <span className="text-yellow-500 font-mono text-sm">
                       Notice: Chat with admin for assistance{' '}
                       <a 
-                        href="https://t.me/Ryancardsplug" 
+                        href="https://t.me/cardvaultstore" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-yellow-400 hover:text-yellow-300 underline"
                       >
-                        @Ryancardsplug
+                        @cardvaultstore
                       </a>
                     </span>
                   </div>

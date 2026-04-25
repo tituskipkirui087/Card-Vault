@@ -51,7 +51,7 @@ const quickQuestions: QuickQuestion[] = [
   {
     id: 'q7',
     question: 'How do I contact support?',
-    answer: 'You can reach our support team via Telegram at @Ryancardsplug. We are available 24/7 for any questions or concerns.'
+    answer: 'You can reach our support team via Telegram at @cardvaultstore. We are available 24/7 for any questions or concerns.'
   },
   {
     id: 'q8',
@@ -131,7 +131,7 @@ export function Chatbot() {
     // Opens Telegram with the last message or a default greeting
     const lastMessage = messages.length > 1 ? messages[messages.length - 1].content : 'Hello, I need help with my order';
     const encodedMessage = encodeURIComponent(lastMessage);
-    window.open(`https://t.me/Ryancardsplug?text=${encodedMessage}`, '_blank');
+    window.open(`https://t.me/cardvaultstore?text=${encodedMessage}`, '_blank');
   };
 
   return (

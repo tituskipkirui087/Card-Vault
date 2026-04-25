@@ -20,7 +20,7 @@ export function Footer() {
       { name: 'privacy', href: '#privacy' },
     ],
     social: [
-      { name: 'telegram', icon: MessageCircle, href: 'https://t.me/Ryancardsplug' },
+      { name: 'telegram', icon: MessageCircle, href: 'https://t.me/cardvaultstore' },
       { name: 'twitter', icon: Twitter, href: '#' },
       { name: 'email', icon: Mail, href: '#' },
     ],
