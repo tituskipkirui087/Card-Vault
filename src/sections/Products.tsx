@@ -197,30 +197,34 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
         <div className="mb-4 p-2 bg-yellow-500/10 border border-yellow-500/30 rounded text-xs">
           <span className="text-yellow-500 font-mono">
             Notice: Chat with admin for assistance{' '}
-            <a 
-                  href="https://t.me/cardvaultstore" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-yellow-400 hover:text-yellow-300 underline"
-                >
-                  @cardvaultstore
-         {/* Features */}
-         <div className="space-y-2 mb-4">
-           {product.category === 'fullz' 
-             ? Array.from({ length: 4 }).map((_, idx) => (
-                 <div key={idx} className="flex items-center gap-2 text-sm text-[#DDA0DD]">
-                   <ChevronRight className="w-4 h-4 text-[#FFD700]" />
-                   <span className="font-mono">HIDDEN</span>
-                 </div>
-               ))
-             : product.features.slice(0, 4).map((feature, idx) => (
-                 <div key={idx} className="flex items-center gap-2 text-sm text-[#DDA0DD]">
-                   <ChevronRight className="w-4 h-4 text-[#FFD700]" />
-                   <span className="font-mono">{feature}</span>
-                 </div>
-               ))
-           }
-         </div>
+            <a
+              href="https://t.me/cardvaultstore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-yellow-400 hover:text-yellow-300 underline"
+            >
+              @cardvaultstore
+            </a>
+          </span>
+        </div>
+
+        {/* Features */}
+        <div className="space-y-2 mb-4">
+          {product.category === 'fullz'
+            ? Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="flex items-center gap-2 text-sm text-[#DDA0DD]">
+                  <ChevronRight className="w-4 h-4 text-[#FFD700]" />
+                  <span className="font-mono">HIDDEN</span>
+                </div>
+              ))
+            : product.features.slice(0, 4).map((feature, idx) => (
+                <div key={idx} className="flex items-center gap-2 text-sm text-[#DDA0DD]">
+                  <ChevronRight className="w-4 h-4 text-[#FFD700]" />
+                  <span className="font-mono">{feature}</span>
+                </div>
+              ))
+          }
+        </div>
         
          <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
            <div className="font-mono">
