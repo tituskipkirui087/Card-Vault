@@ -47,13 +47,22 @@ export function Hero() {
   ];
 
   const features = [
-    { icon: CreditCard, text: 'Premium Cards' },
-    { icon: Key, text: 'Linkable CCs' },
-    { icon: Database, text: 'Bank Logs' },
-    { icon: Users, text: 'Verified Accounts' },
-    { icon: Zap, text: 'Pro Tools' },
-    { icon: Shield, text: 'Secure Payments' },
+    { icon: CreditCard, text: 'Premium Cards', category: 'cards', color: 'border-emerald-500 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400' },
+    { icon: Key, text: 'Linkable CCs', category: 'ccs', color: 'border-cyan-500 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400' },
+    { icon: Database, text: 'Bank Logs', category: 'logs', color: 'border-purple-500 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400' },
+    { icon: Users, text: 'Verified Accounts', category: 'accounts', color: 'border-amber-500 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400' },
+    { icon: Zap, text: 'Pro Tools', category: 'tools', color: 'border-red-500 bg-red-500/10 hover:bg-red-500/20 text-red-400' },
+    { icon: Shield, text: 'Secure Payments', category: 'all', color: 'border-blue-500 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400' },
   ];
+
+  const handleCategoryClick = (categoryId: string) => {
+    const productsSection = document.getElementById('products');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+      // Dispatch custom event to notify Products component
+      window.dispatchEvent(new CustomEvent('selectCategory', { detail: { category: categoryId } }));
+    }
+  };
 
   return (
     <section id="home" className="relative flex items-center justify-center overflow-hidden pt-16 py-8">
@@ -197,13 +206,14 @@ export function Hero() {
               <div className="text-green-700 text-xs mb-3">$ ls categories/</div>
               <div className="grid grid-cols-3 gap-2">
                 {features.map((feature, index) => (
-                  <div 
+                  <button
                     key={index}
-                    className="flex items-center gap-2 p-2 border border-green-500/20 bg-green-500/5 hover:border-green-500/40 transition-colors"
+                    onClick={() => handleCategoryClick(feature.category)}
+                    className={`flex items-center gap-2 p-2 border rounded transition-all duration-300 cursor-pointer hover:shadow-lg ${ feature.color}`}
                   >
-                    <feature.icon className="w-4 h-4 text-green-500" />
-                    <span className="text-green-400 text-xs">{feature.text}</span>
-                  </div>
+                    <feature.icon className="w-4 h-4" />
+                    <span className="text-xs font-mono">{feature.text}</span>
+                  </button>
                 ))}
               </div>
             </div>

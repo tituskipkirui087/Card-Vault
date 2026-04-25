@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ShoppingCart, CreditCard, Link, Database,
   UserCircle, Wrench, Terminal, Eye, ChevronRight, Hash, FileText, ChevronUp, ChevronDown, Zap
@@ -809,6 +809,17 @@ export function Products({ onProductSold }: { onProductSold?: (productName: stri
   const { ref, isVisible } = useScrollAnimation();
   const { products: storeProducts } = useStore();
 
+  // Listen for category selection from Hero
+  useEffect(() => {
+    const handleSelectCategory = (event: Event) => {
+      const customEvent = event as CustomEvent<{ category: string }>;
+      setActiveCategory(customEvent.detail.category as Category);
+    };
+
+    window.addEventListener('selectCategory', handleSelectCategory);
+    return () => window.removeEventListener('selectCategory', handleSelectCategory);
+  }, []);
+
   const filteredProducts = activeCategory === 'all'
     ? storeProducts.filter(p => p.category !== 'fullz')
     : storeProducts.filter(p => p.category === activeCategory && p.category !== 'fullz');
@@ -840,18 +851,38 @@ export function Products({ onProductSold }: { onProductSold?: (productName: stri
           <span className="text-green-700 font-mono text-sm mr-2">$ filter --category=</span>
           {categories.map((category) => {
             const Icon = iconMap[category.icon] || Terminal;
+            const categoryColors: Record<string, string> = {
+              'all': 'border-blue-500 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400',
+              'cards': 'border-emerald-500 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400',
+              'ccs': 'border-cyan-500 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400',
+              'logs': 'border-purple-500 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400',
+              'accounts': 'border-amber-500 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400',
+              'tools': 'border-red-500 bg-red-500/10 hover:bg-red-500/20 text-red-400',
+              'fullz': 'border-pink-500 bg-pink-500/10 hover:bg-pink-500/20 text-pink-400',
+            };
+            const activeColorMap: Record<string, string> = {
+              'all': 'bg-blue-500 text-black border-blue-500 shadow-lg shadow-blue-500/50',
+              'cards': 'bg-emerald-500 text-black border-emerald-500 shadow-lg shadow-emerald-500/50',
+              'ccs': 'bg-cyan-500 text-black border-cyan-500 shadow-lg shadow-cyan-500/50',
+              'logs': 'bg-purple-500 text-black border-purple-500 shadow-lg shadow-purple-500/50',
+              'accounts': 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/50',
+              'tools': 'bg-red-500 text-black border-red-500 shadow-lg shadow-red-500/50',
+              'fullz': 'bg-pink-500 text-black border-pink-500 shadow-lg shadow-pink-500/50',
+            };
+            const colorClass = categoryColors[category.id] || categoryColors['all'];
+            const activeClass = activeColorMap[category.id] || activeColorMap['all'];
             return (
               <Button
                 key={category.id}
                 variant={activeCategory === category.id ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setActiveCategory(category.id as Category)}
-                className={`font-mono text-xs relative overflow-hidden ${
+                className={`font-mono text-xs relative overflow-hidden border transition-all duration-300 ${
                   category.id === 'daily-drops'
                     ? 'fire-category-button'
                     : activeCategory === category.id
-                    ? 'bg-green-500 text-black border-green-500'
-                    : 'border-green-500/30 text-green-600 hover:bg-green-500/10 hover:text-green-400'
+                    ? activeClass
+                    : colorClass
                 }`}
               >
                 <Icon className="w-3 h-3 mr-1" />
