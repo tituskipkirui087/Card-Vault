@@ -368,7 +368,7 @@ export function Fullz({ onProductSold }: { onProductSold?: (productName: string,
                           </span>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-col items-center gap-1">
                             {expandedRows[entry.id] ? (
                               <ChevronUp className="w-4 h-4 text-pink-400" />
                             ) : (
@@ -383,7 +383,7 @@ export function Fullz({ onProductSold }: { onProductSold?: (productName: string,
                               disabled={entry.status === 'sold'}
                               className="bg-pink-500/20 border border-pink-500 text-pink-300 hover:bg-pink-500 hover:text-black disabled:opacity-50"
                             >
-                              <ShoppingCart className="w-3 h-3 mr-1" />
+                              <ShoppingCart className="w-3 h-3" />
                               Add
                             </Button>
                           </div>

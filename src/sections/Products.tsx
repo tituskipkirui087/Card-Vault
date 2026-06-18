@@ -284,8 +284,8 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
                 <span className="text-green-800 text-sm line-through ml-2">${product.originalPrice}</span>
               )}
             </div>
-            <div className="flex items-center gap-2 pt-3 border-t border-green-500/20">
-            <Button 
+            <div className="flex justify-center gap-2 pt-3 border-t border-green-500/20">
+            <Button
               size="sm"
               onClick={() => {
                 if (selectedStockOption) {
@@ -307,13 +307,13 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
               }}
               disabled={totalOptionStock === 0 || (selectedStockOption ? (currentProduct.stockOptions?.find(o => o.price === selectedStockOption.price)?.stock ?? selectedStockOption.stock) === 0 : false)}
               className={`bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black ${totalOptionStock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
->
+            >
               <ShoppingCart className="w-4 h-4" />
             </Button>
             <Dialog>
               <DialogTrigger asChild>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   className="border-green-500/30 text-green-600 hover:bg-green-500/10 hover:text-green-400"
                 >
@@ -747,7 +747,7 @@ function FullzInventory({ onProductSold }: { onProductSold?: (productName: strin
                         </span>
                       </TableCell>
                       <TableCell>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col items-center gap-1">
                           {expandedRows[entry.id] ? (
                             <ChevronUp className="w-4 h-4 text-pink-400" />
                           ) : (
@@ -762,12 +762,12 @@ function FullzInventory({ onProductSold }: { onProductSold?: (productName: strin
                             disabled={entry.status === 'sold'}
                             className="bg-pink-500/20 border border-pink-500 text-pink-300 hover:bg-pink-500 hover:text-black disabled:opacity-50"
                           >
-                            <ShoppingCart className="w-3 h-3 mr-1" />
-                            Add
+                              <ShoppingCart className="w-3 h-3" />
+                              Add
                           </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
+                          </div>
+                        </TableCell>
+                      </TableRow>
 
                     {/* Expanded Row with Full Details */}
                     {expandedRows[entry.id] && (
