@@ -226,195 +226,197 @@ function ProductCard({ product, index: _index, onProductSold: _onProductSold }: 
           }
         </div>
         
-         <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
-           <div className="font-mono">
-             {/* Stock Options Dropdown */}
-             {product.stockOptions && product.stockOptions.length > 0 ? (
-               <div className="mb-2">
-                 <Select
-                   value={selectedStockOption ? (isTool ? `${selectedStockOption.price}-${selectedStockOption.quality}` : `${selectedStockOption.price}-${selectedStockOption.balance}`) : ''}
-                   onValueChange={(value) => {
-                     const parts = value.split('-');
-                     const price = Number(parts[0]);
-                     const option = product.stockOptions?.find(o => o.price === price);
-                     if (option) setSelectedStockOption(option);
-                   }}
-                 >
-                   <SelectTrigger className="h-auto py-2 px-3 text-sm border-green-500/50 bg-black/80 text-green-400 font-mono w-full justify-between">
-                     <SelectValue placeholder="Select option" />
-                   </SelectTrigger>
-                   <SelectContent className="bg-black border-green-500/50 min-w-[200px]">
-                     {product.stockOptions?.map((option, idx) => {
-                       // Get the current option stock from store
-                       const storeProduct = storeProducts.find(p => p.id === product.id);
-                       const storeOption = storeProduct?.stockOptions?.find(o => o.price === option.price);
-                       const currentOptionStock = storeOption?.stock ?? option.stock;
-                       
-                       return (
-                         <SelectItem 
-                           key={idx} 
-                           value={`${option.price}-${isTool ? option.quality : option.balance}`}
-                           className="text-green-400 font-mono text-sm focus:bg-green-500/20 focus:text-green-300 py-2"
-                           disabled={currentOptionStock === 0}
-                         >
-                           <span className="text-[#FF6B6B] font-semibold">PRICE ${option.price}</span>
-                           {isTool ? (
-                             <span className="text-[#4ECDC4] ml-2">- {option.quality}</span>
-                           ) : (
-                             <span className="text-[#45B7D1] ml-2">- Balance ${option.balance.toLocaleString()}</span>
-                           )}
-                           <span className={`ml-2 ${currentOptionStock > 5 ? 'text-[#96CEB4]' : currentOptionStock > 0 ? 'text-[#FFEAA7]' : 'text-[#FF6B6B]'}`}>
-                             ({currentOptionStock} left)
-                           </span>
-                         </SelectItem>
-                       );
-                     })}
-                   </SelectContent>
-                 </Select>
-               </div>
-             ) : (
-               <div className="text-[#95E1D3] text-xs mb-1">Stock: {totalOptionStock}</div>
-             )}
-<span className="text-[#F38181]">$</span>
-              <span className="text-[#A8E6CF] text-xl font-bold">
-                {selectedStockOption ? selectedStockOption.price : currentProduct.price}
-              </span>
-              <span className="text-[#88D8B0]">.00</span>
-              {product.originalPrice && (
-                <span className="text-green-800 text-sm line-through ml-2">${product.originalPrice}</span>
+          <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
+            <div className="flex flex-col gap-2">
+              {product.stockOptions && product.stockOptions.length > 0 ? (
+                <div className="mb-1">
+                  <Select
+                    value={selectedStockOption ? (isTool ? `${selectedStockOption.price}-${selectedStockOption.quality}` : `${selectedStockOption.price}-${selectedStockOption.balance}`) : ''}
+                    onValueChange={(value) => {
+                      const parts = value.split('-');
+                      const price = Number(parts[0]);
+                      const option = product.stockOptions?.find(o => o.price === price);
+                      if (option) setSelectedStockOption(option);
+                    }}
+                  >
+                    <SelectTrigger className="h-auto py-2 px-3 text-xs border-green-500/50 bg-black/80 text-green-400 font-mono w-full justify-between">
+                      <SelectValue placeholder="Select option" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-black border-green-500/50 min-w-[200px]">
+                      {product.stockOptions?.map((option, idx) => {
+                        const storeProduct = storeProducts.find(p => p.id === product.id);
+                        const storeOption = storeProduct?.stockOptions?.find(o => o.price === option.price);
+                        const currentOptionStock = storeOption?.stock ?? option.stock;
+                        
+                        return (
+                          <SelectItem 
+                            key={idx} 
+                            value={`${option.price}-${isTool ? option.quality : option.balance}`}
+                            className="text-green-400 font-mono text-xs focus:bg-green-500/20 focus:text-green-300 py-2"
+                            disabled={currentOptionStock === 0}
+                          >
+                            <span className="text-[#FF6B6B] font-semibold">PRICE ${option.price}</span>
+                            {isTool ? (
+                              <span className="text-[#4ECDC4] ml-2">- {option.quality}</span>
+                            ) : (
+                              <span className="text-[#45B7D1] ml-2">- Balance ${option.balance.toLocaleString()}</span>
+                            )}
+                            <span className={`ml-2 ${currentOptionStock > 5 ? 'text-[#96CEB4]' : currentOptionStock > 0 ? 'text-[#FFEAA7]' : 'text-[#FF6B6B]'}`}>
+                              ({currentOptionStock} left)
+                            </span>
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                </div>
+              ) : (
+                <div className="text-[#95E1D3] text-xs">Stock: {totalOptionStock}</div>
               )}
-            </div>
-            <div className="flex justify-center gap-2 pt-3 border-t border-green-500/20">
-            <Button
-              size="sm"
-              onClick={() => {
-                if (selectedStockOption) {
-                  const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
-                  reduceOptionStock(product.id, selectedStockOption.price, 1);
-                  addToCart(itemToAdd);
-                  if (_onProductSold) {
-                    const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                    _onProductSold(product.name, selectedStockOption.price, location);
-                  }
-                } else {
-                  reduceStock(product.id, 1);
-                  addToCart(product);
-                  if (_onProductSold) {
-                    const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                    _onProductSold(product.name, product.price, location);
-                  }
-                }
-              }}
-              disabled={totalOptionStock === 0 || (selectedStockOption ? (currentProduct.stockOptions?.find(o => o.price === selectedStockOption.price)?.stock ?? selectedStockOption.stock) === 0 : false)}
-              className={`bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black ${totalOptionStock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              <ShoppingCart className="w-4 h-4" />
-            </Button>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
+              <div className="flex items-center gap-1">
+                <Button 
                   size="sm"
-                  className="border-green-500/30 text-green-600 hover:bg-green-500/10 hover:text-green-400"
-                >
-                  <Eye className="w-4 h-4" />
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-lg bg-black border border-green-500/30">
-                <DialogHeader>
-                  <DialogTitle className="text-green-400 font-mono flex items-center gap-2">
-                    <Terminal className="w-5 h-5" />
-                    {product.name}
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4 font-mono">
-                  <div className="p-3 border border-green-500/20 bg-green-500/5">
-                    <span className="text-green-700">$ cat description</span>
-                    <p className="text-green-400 mt-2">{product.category === 'fullz' ? 'HIDDEN' : product.description}</p>
-                  </div>
-
-                  {/* Notice - Chat with admin */}
-                  <div className="p-3 bg-yellow-500/10 border border-yellow-500/30">
-                    <span className="text-yellow-500 font-mono text-sm">
-                      Notice: Chat with admin for assistance{' '}
-                      <a 
-                        href="https://t.me/cardvaultstore" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-yellow-400 hover:text-yellow-300 underline"
-                      >
-                        @cardvaultstore
-                      </a>
-                    </span>
-                  </div>
-                  
-                  <div>
-                    <span className="text-green-700">$ ls features/</span>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {product.category === 'fullz'
-                        ? Array.from({ length: product.features.length }).map((_, idx) => (
-                            <span key={idx} className="text-xs text-green-500 border border-green-500/30 px-2 py-1">
-                              HIDDEN
-                            </span>
-                          ))
-                        : product.features.map((feature, idx) => (
-                            <span key={idx} className="text-xs text-green-500 border border-green-500/30 px-2 py-1">
-                              {feature}
-                            </span>
-                          ))
+                  onClick={() => {
+                    if (selectedStockOption) {
+                      const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
+                      reduceOptionStock(product.id, selectedStockOption.price, 1);
+                      addToCart(itemToAdd);
+                      if (_onProductSold) {
+                        const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                        _onProductSold(product.name, selectedStockOption.price, location);
                       }
-                    </div>
-                  </div>
+                    } else {
+                      reduceStock(product.id, 1);
+                      addToCart(product);
+                      if (_onProductSold) {
+                        const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                        _onProductSold(product.name, product.price, location);
+                      }
+                    }
+                  }}
+                  disabled={totalOptionStock === 0 || (selectedStockOption ? (currentProduct.stockOptions?.find(o => o.price === selectedStockOption.price)?.stock ?? selectedStockOption.stock) === 0 : false)}
+                  className={`bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black ${totalOptionStock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  <ShoppingCart className="w-3 h-3" />
+                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="border-green-500/30 text-green-600 hover:bg-green-500/10 hover:text-green-400"
+                    >
+                      <Eye className="w-3 h-3" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-lg bg-black border border-green-500/30">
+                    <DialogHeader>
+                      <DialogTitle className="text-green-400 font-mono flex items-center gap-2">
+                        <Terminal className="w-5 h-5" />
+                        {product.name}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4 font-mono">
+                      <div className="p-3 border border-green-500/20 bg-green-500/5">
+                        <span className="text-green-700">$ cat description</span>
+                        <p className="text-green-400 mt-2">{product.category === 'fullz' ? 'HIDDEN' : product.description}</p>
+                      </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
-                    <div className="text-green-700">
-                      stock: <span className="text-green-400">{totalOptionStock} remaining</span>
-                    </div>
-                    <div>
-                      <span className="text-green-700">price: </span>
-                      <span className="text-green-400 text-xl">
-                        ${selectedStockOption ? selectedStockOption.price : product.price}
-                      </span>
-                      {selectedStockOption && (
-                        <div className="text-green-600 text-xs">
-                          {isTool 
-                            ? `Level: ${selectedStockOption.quality}`
-                            : `Balance: ${selectedStockOption.balance.toLocaleString()}`
+                      {/* Notice - Chat with admin */}
+                      <div className="p-3 bg-yellow-500/10 border border-yellow-500/30">
+                        <span className="text-yellow-500 font-mono text-sm">
+                          Notice: Chat with admin for assistance{' '}
+                          <a 
+                            href="https://t.me/cardvaultstore" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-yellow-400 hover:text-yellow-300 underline"
+                          >
+                            @cardvaultstore
+                          </a>
+                        </span>
+                      </div>
+                      
+                      <div>
+                        <span className="text-green-700">$ ls features/</span>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {product.category === 'fullz'
+                            ? Array.from({ length: product.features.length }).map((_, idx) => (
+                                <span key={idx} className="text-xs text-green-500 border border-green-500/30 px-2 py-1">
+                                  HIDDEN
+                                </span>
+                              ))
+                            : product.features.map((feature, idx) => (
+                                <span key={idx} className="text-xs text-green-500 border border-green-500/30 px-2 py-1">
+                                  {feature}
+                                </span>
+                              ))
                           }
                         </div>
-                      )}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-green-500/20">
+                        <div className="text-green-700">
+                          stock: <span className="text-green-400">{totalOptionStock} remaining</span>
+                        </div>
+                        <div>
+                          <span className="text-green-700">price: </span>
+                          <span className="text-green-400 text-xl">
+                            ${selectedStockOption ? selectedStockOption.price : product.price}
+                          </span>
+                          {selectedStockOption && (
+                            <div className="text-green-600 text-xs">
+                              {isTool 
+                                ? `Level: ${selectedStockOption.quality}`
+                                : `Balance: ${selectedStockOption.balance.toLocaleString()}`
+                              }
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => {
+                          if (selectedStockOption) {
+                            const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
+                            reduceOptionStock(product.id, selectedStockOption.price, 1);
+                            addToCart(itemToAdd);
+                            if (_onProductSold) {
+                              const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                              _onProductSold(product.name, selectedStockOption.price, location);
+                            }
+                          } else {
+                            reduceStock(product.id, 1);
+                            addToCart(product);
+                            if (_onProductSold) {
+                              const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
+                              _onProductSold(product.name, product.price, location);
+                            }
+                          }
+                        }}
+                        className="w-full bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black font-mono"
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        ./add_to_cart.sh
+                      </Button>
                     </div>
-                  </div>
-                  
-<Button 
-                    onClick={() => {
-                      if (selectedStockOption) {
-                        const itemToAdd = { ...product, price: selectedStockOption.price, stock: selectedStockOption.stock };
-                        reduceOptionStock(product.id, selectedStockOption.price, 1);
-                        addToCart(itemToAdd);
-                        if (_onProductSold) {
-                          const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                          _onProductSold(product.name, selectedStockOption.price, location);
-                        }
-                      } else {
-                        reduceStock(product.id, 1);
-                        addToCart(product);
-                        if (_onProductSold) {
-                          const location = product.location || (product.name.includes('US') ? 'United States' : product.name.includes('EU') ? 'European Union' : product.name.includes('UK') ? 'United Kingdom' : product.name.includes('CA') ? 'Canada' : product.name.includes('AU') ? 'Australia' : 'Global');
-                          _onProductSold(product.name, product.price, location);
-                        }
-                      }
-                    }}
-                    className="w-full bg-green-500/20 border border-green-500 text-green-400 hover:bg-green-500 hover:text-black font-mono"
-                  >
-                    <ShoppingCart className="w-4 h-4 mr-2" />
-                    ./add_to_cart.sh
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+            <div className="font-mono text-right">
+              <div className="flex items-center justify-end gap-1">
+                <span className="text-[#F38181]">$</span>
+                <span className="text-[#A8E6CF] text-xl font-bold">
+                  {selectedStockOption ? selectedStockOption.price : currentProduct.price}
+                </span>
+                <span className="text-[#88D8B0]">.00</span>
+              </div>
+              {product.originalPrice && (
+                <span className="text-green-800 text-sm line-through">${product.originalPrice}</span>
+              )}
+            </div>
           </div>
-        </div>
       </CardContent>
     </Card>
   );
