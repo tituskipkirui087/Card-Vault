@@ -44,6 +44,10 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-stretch: condensed;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv05", "cv06";
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
   }
   html {
     scroll-behavior: smooth;
